@@ -1,3 +1,11 @@
+import { ThemeToggle } from "@/components/ui/theme-toggle";
+
 export default function Home() {
-  return <div className="text-2xl font-bold text-red-600">Hello World</div>;
+  return (
+    <div>
+      <h1 className="text-2xl font-bold text-red-500">Hello World</h1>
+
+      <ThemeToggle />
+    </div>
+  );
 }
