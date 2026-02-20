@@ -2,8 +2,6 @@
 
 import { BookOpen, Home, LayoutDashboard, LogOut } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,7 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { authClient } from "@/lib/auth-client";
+import { useSignOut } from "@/hooks/user-signout";
 
 interface IAppProps {
   name: string;
@@ -23,21 +21,8 @@ interface IAppProps {
 }
 
 const UserDropdown = ({ email, name, image }: IAppProps) => {
-  const router = useRouter();
+  const handleSignOut = useSignOut();
 
-  async function signOut() {
-    await authClient.signOut({
-      fetchOptions: {
-        onSuccess: () => {
-          router.push("/");
-          toast.success("Singed out Successfully");
-        },
-        onError: () => {
-          toast.error("Failed to sign out");
-        },
-      },
-    });
-  }
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -77,7 +62,7 @@ const UserDropdown = ({ email, name, image }: IAppProps) => {
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem variant="destructive" onClick={signOut}>
+        <DropdownMenuItem variant="destructive" onClick={handleSignOut}>
           <LogOut />
           Log out
         </DropdownMenuItem>
