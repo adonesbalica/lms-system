@@ -33,7 +33,7 @@ const UserDropdown = ({ email, name, image }: IAppProps) => {
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-56">
+      <DropdownMenuContent align="end" className="min-w-48">
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
             <p className="font-medium text-sm leading-none">{name}</p>
@@ -62,7 +62,11 @@ const UserDropdown = ({ email, name, image }: IAppProps) => {
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem variant="destructive" onClick={handleSignOut}>
+        <DropdownMenuItem
+          variant="destructive"
+          onClick={handleSignOut}
+          className="cursor-pointer"
+        >
           <LogOut />
           Log out
         </DropdownMenuItem>
