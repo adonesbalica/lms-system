@@ -328,7 +328,7 @@ export default function CourseCreationPage() {
                 {pending ? (
                   <>
                     Creating...
-                    <Loader2 className="animate-spin size-16 ml-1" />
+                    <Loader2 className="animate-spin ml-1" />
                   </>
                 ) : (
                   <>

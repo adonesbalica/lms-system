@@ -22,16 +22,18 @@ const aj = arcjet
     }),
   );
 
-export async function CreateCourse(
-  values: CourseSchemaType,
+export async function editCourse(
+  data: CourseSchemaType,
+  courseId: string,
 ): Promise<ApiResponse> {
-  const session = await requireAdmin();
+  const user = await requireAdmin();
 
   try {
+    const result = courseSchema.safeParse(data);
     const req = await request();
 
     const decision = await aj.protect(req, {
-      fingerprint: session?.user.id as string,
+      fingerprint: user?.user.id as string,
     });
 
     if (decision.isDenied()) {
@@ -48,30 +50,31 @@ export async function CreateCourse(
       }
     }
 
-    const validation = courseSchema.safeParse(values);
-
-    if (!validation.success) {
+    if (!result.success) {
       return {
         status: "error",
-        message: "Invalid form data",
+        message: "Invalid data",
       };
     }
 
-    const data = await prisma.course.create({
+    await prisma.course.update({
+      where: {
+        id: courseId,
+        userId: user.user.id,
+      },
       data: {
-        ...validation.data,
-        userId: session?.user.id as string,
+        ...result.data,
       },
     });
 
     return {
       status: "success",
-      message: "Course created successfully",
+      message: "Course updated successfully",
     };
   } catch {
     return {
       status: "error",
-      message: "Failed to create course",
+      message: "Failed to updated course",
     };
   }
 }

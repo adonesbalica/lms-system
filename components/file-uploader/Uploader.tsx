@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { type FileRejection, useDropzone } from "react-dropzone";
 import { toast } from "sonner";
 import { v4 as uuidV4 } from "uuid";
+import { useConstructUrl } from "@/hooks/use-construct";
 import { cn } from "@/lib/utils";
 import { Card, CardContent } from "../ui/card";
 import {
@@ -31,6 +32,8 @@ interface IAppProps {
 }
 
 export function Uploader({ onChange, value }: IAppProps) {
+  const fileUrl = useConstructUrl(value || "");
+
   const [fileState, setFileState] = useState<UploaderState>({
     error: false,
     file: null,
@@ -40,6 +43,7 @@ export function Uploader({ onChange, value }: IAppProps) {
     isDeleting: false,
     fileType: "image",
     key: value,
+    objectUrl: fileUrl,
   });
 
   const onDrop = useCallback(
