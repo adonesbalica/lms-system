@@ -1,6 +1,6 @@
 import "server-only";
 
-import { GetObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
+import { PutObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { NextResponse } from "next/server";
 import { v4 as uuidV4 } from "uuid";
@@ -34,9 +34,10 @@ export async function POST(request: Request) {
 
     const presignedUrl = await getSignedUrl(
       S3,
-      new GetObjectCommand({
-        Bucket: "lms-system-bucket",
+      new PutObjectCommand({
+        Bucket: env.NEXT_PUBLIC_S3_BUCKET_NAME_IMAGES,
         Key: uniqueKey,
+        ContentType: contentType,
       }),
       {
         expiresIn: 360,
