@@ -1,10 +1,8 @@
 "use client";
 
-export const dynamic = "force-dynamic";
-
 import { Loader } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState, useTransition } from "react";
+import { Suspense, useState, useTransition } from "react"; // Adicionado Suspense
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
@@ -21,7 +19,7 @@ import {
 } from "@/components/ui/input-otp";
 import { authClient } from "@/lib/auth-client";
 
-export default function VerifyRequest() {
+function VerifyRequestForm() {
   const router = useRouter();
   const [otp, setOtp] = useState("");
   const [emailPending, setEmailTransition] = useTransition();
@@ -96,5 +94,19 @@ export default function VerifyRequest() {
         </Button>
       </CardContent>
     </Card>
+  );
+}
+
+export default function VerifyRequest() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex items-center justify-center p-8">
+          <Loader className="size-8 animate-spin text-muted-foreground" />
+        </div>
+      }
+    >
+      <VerifyRequestForm />
+    </Suspense>
   );
 }
