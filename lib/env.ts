@@ -6,7 +6,6 @@ export const env = createEnv({
     DATABASE_URL: z.url(),
     BETTER_AUTH_SECRET: z.string().min(1),
     BETTER_AUTH_URL: z.url(),
-    NEXT_BETTER_AUTH_URL: z.url(),
     AUTH_GITHUB_CLIENT_ID: z.string().min(1),
     AUTH_GITHUB_SECRET: z.string().min(1),
     RESEND_API_KEY: z.string().min(1),
@@ -17,11 +16,13 @@ export const env = createEnv({
   },
   client: {
     NEXT_PUBLIC_S3_BUCKET_NAME_IMAGES: z.string().min(1),
+    NEXT_PUBLIC_BETTER_AUTH_URL: z.url(),
   },
 
   // For Next.js >= 13.4.4, you only need to destructure client variables:
   experimental__runtimeEnv: {
     NEXT_PUBLIC_S3_BUCKET_NAME_IMAGES:
       process.env.NEXT_PUBLIC_S3_BUCKET_NAME_IMAGES,
+    NEXT_PUBLIC_BETTER_AUTH_URL: process.env.NEXT_PUBLIC_BETTER_AUTH_URL,
   },
 });
