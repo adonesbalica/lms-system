@@ -2,7 +2,7 @@
 
 import { Loader } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useState, useTransition } from "react"; // Adicionado Suspense
+import { Suspense, useState, useTransition } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,7 +19,15 @@ import {
 } from "@/components/ui/input-otp";
 import { authClient } from "@/lib/auth-client";
 
-function VerifyRequestForm() {
+export default function VerifyRequestRoute() {
+  return (
+    <Suspense>
+      <VerifyRequest />
+    </Suspense>
+  );
+}
+
+function VerifyRequest() {
   const router = useRouter();
   const [otp, setOtp] = useState("");
   const [emailPending, setEmailTransition] = useTransition();
@@ -94,19 +102,5 @@ function VerifyRequestForm() {
         </Button>
       </CardContent>
     </Card>
-  );
-}
-
-export default function VerifyRequest() {
-  return (
-    <Suspense
-      fallback={
-        <div className="flex items-center justify-center p-8">
-          <Loader className="size-8 animate-spin text-muted-foreground" />
-        </div>
-      }
-    >
-      <VerifyRequestForm />
-    </Suspense>
   );
 }

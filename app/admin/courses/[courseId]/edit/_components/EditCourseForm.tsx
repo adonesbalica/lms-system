@@ -1,7 +1,5 @@
 "use client";
 
-"use client";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, PlusIcon, Sparkle } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -144,7 +142,7 @@ export function EditCourseForm({ data, courseId }: IAppProps) {
                 <Textarea
                   placeholder="Small Description"
                   {...field}
-                  className="min-h-[120px]"
+                  className="min-h-30"
                 />
               </FormControl>
               <FormMessage />
