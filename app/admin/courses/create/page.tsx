@@ -35,6 +35,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { useConfetti } from "@/hooks/use-confetti";
 import { tryCatch } from "@/lib/try-catch";
 import {
   type CourseSchemaType,
@@ -48,6 +49,7 @@ import { CreateCourse } from "./actions";
 export default function CourseCreationPage() {
   const [pending, startTransition] = useTransition();
   const router = useRouter();
+  const { triggerConfetti } = useConfetti();
 
   const form = useForm<CourseSchemaType>({
     resolver: zodResolver(courseSchema) as Resolver<CourseSchemaType>,
@@ -76,6 +78,7 @@ export default function CourseCreationPage() {
 
       if (result.status === "success") {
         toast.success(result.message);
+        triggerConfetti();
         form.reset();
         router.push("/admin/courses");
       } else if (result.status === "error") {
@@ -165,7 +168,7 @@ export default function CourseCreationPage() {
                       <Textarea
                         placeholder="Small Description"
                         {...field}
-                        className="min-h-[120px]"
+                        className="min-h-30"
                       />
                     </FormControl>
                     <FormMessage />
