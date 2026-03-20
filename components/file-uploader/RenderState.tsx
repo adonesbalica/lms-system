@@ -45,21 +45,27 @@ export function RenderErrorState() {
 export function RenderUploadedState({
   previewUrl,
   isDeleting,
+  fileType,
   handleRemoveFile,
 }: {
   previewUrl: string;
   isDeleting: boolean;
+  fileType: "image" | "video";
   handleRemoveFile: () => void;
 }) {
   return (
-    <div>
-      <Image
-        src={previewUrl}
-        alt="Uploaded File"
-        fill
-        className="object-contain p-2"
-      />
-
+    <div className="relative group w-full h-full flex items-center">
+      {fileType === "video" ? (
+        // biome-ignore lint/a11y/useMediaCaption: <explanation>
+        <video src={previewUrl} controls className="rounded-md w-full h-full" />
+      ) : (
+        <Image
+          src={previewUrl}
+          alt="Uploaded File"
+          fill
+          className="object-contain p-2"
+        />
+      )}
       <Button
         className={cn("absolute top-4 right-4 cursor-pointer")}
         size="icon"

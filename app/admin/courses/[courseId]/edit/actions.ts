@@ -11,7 +11,6 @@ import {
   type CourseSchemaType,
   chapterSchema,
   courseSchema,
-  type LessonSchemaType,
   lessonSchema,
 } from "@/lib/zodSchemas";
 
