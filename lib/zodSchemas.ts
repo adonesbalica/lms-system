@@ -52,7 +52,9 @@ export const courseSchema = z.object({
 
   slug: z
     .string()
-    .min(3, { message: "Slug must be at least 3 characters long" }),
+    .min(3, { message: "Slug must be at least 3 characters long" })
+    .toLowerCase()
+    .trim(),
 
   status: z.enum(coursesStatus, {
     message: "Status is required",

@@ -121,7 +121,11 @@ export function EditCourseForm({ data, courseId }: IAppProps) {
             className="w-fit cursor-pointer"
             onClick={() => {
               const titleValue = form.getValues("title");
-              const slug = slugify(titleValue);
+              const slug = slugify(titleValue || "", {
+                lower: true,
+                strict: true,
+                trim: true,
+              });
 
               form.setValue("slug", slug, {
                 shouldValidate: true,
