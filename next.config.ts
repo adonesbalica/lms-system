@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        hostname: "lms-system-storage.s3.us-east-1.amazonaws.com",
+        hostname: "lms-systembr.t3.storage.dev",
         port: "",
         protocol: "https",
       },

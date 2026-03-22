@@ -58,7 +58,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const { fileName, contentType } = validation.data;
+    const { fileName, contentType, size } = validation.data;
 
     const uniqueKey = `${uuidV4()}-${fileName}`;
 
@@ -68,6 +68,7 @@ export async function POST(request: Request) {
         Bucket: env.NEXT_PUBLIC_S3_BUCKET_NAME_IMAGES,
         Key: uniqueKey,
         ContentType: contentType,
+        ContentLength: size,
       }),
       {
         expiresIn: 360,

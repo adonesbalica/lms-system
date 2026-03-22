@@ -13,10 +13,12 @@ export const env = createEnv({
     AWS_ACCESS_KEY_ID: z.string().min(1),
     AWS_SECRET_ACCESS_KEY: z.string().min(1),
     AWS_REGION: z.string().min(1),
+    AWS_ENDPOINT_URL_S3: z.string().min(1),
   },
   client: {
     NEXT_PUBLIC_S3_BUCKET_NAME_IMAGES: z.string().min(1),
     NEXT_PUBLIC_BETTER_AUTH_URL: z.url(),
+    NEXT_PUBLIC_S3_ENDPOINT: z.string().min(1),
   },
 
   // For Next.js >= 13.4.4, you only need to destructure client variables:
@@ -24,5 +26,6 @@ export const env = createEnv({
     NEXT_PUBLIC_S3_BUCKET_NAME_IMAGES:
       process.env.NEXT_PUBLIC_S3_BUCKET_NAME_IMAGES,
     NEXT_PUBLIC_BETTER_AUTH_URL: process.env.NEXT_PUBLIC_BETTER_AUTH_URL,
+    NEXT_PUBLIC_S3_ENDPOINT: process.env.NEXT_PUBLIC_S3_ENDPOINT,
   },
 });
